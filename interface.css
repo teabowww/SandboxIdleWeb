@@ -1,0 +1,26 @@
+body {
+	background-color: #1e1e1e;
+	color: #eee;
+}
+
+#grid-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+#grid-display {
+	display: grid;
+	grid-template-columns: repeat(20, 20px);
+	grid-template-rows: repeat(20, 20px);
+	justify-content: center;
+	align-content: center;
+	width: 400px;
+	height: 400px;
+}
+
+.grid-cell {
+	width: 20px;
+	height: 20px;
+}

@@ -2,6 +2,12 @@ body {
 	background-color: #1e1e1e;
 	color: #eee;
 	font-family: monospace;
+	text-align: center;
+	font-size: 1.0rem;
+}
+
+#pixel-count {
+	font-size: 1.5rem;
 }
 
 #grid-container {

@@ -1,6 +1,7 @@
 body {
 	background-color: #1e1e1e;
 	color: #eee;
+	font-family: monospace;
 }
 
 #grid-container {

@@ -55,15 +55,17 @@ class SandGrid {
 
 	setupGridDisplay() {
 		this.gridDisplay.onclick = (event) => this.onClick(event);
-
+		
 		this.gridDisplay.innerHTML = "";
 
-		// Set display grid columns and rows
+		// Set display grid column and row lengths
 		this.gridDisplay.style.gridTemplateColumns = `repeat(${this.width}, ${this.cellSize}px)`;
 		this.gridDisplay.style.gridTemplateRows = `repeat(${this.width}, ${this.cellSize}px)`;
 
 		for (let y = 0; y < this.height; y++) {
 			for (let x = 0; x < this.width; x++) {
+
+				//console.log(getRandomInt(1));
 
 				let cell = document.createElement("div");
 
@@ -85,6 +87,26 @@ class SandGrid {
 		}
 	}
 
+	damageCell(x, y, damage) {
+		if (this.grid[y][x] > 0) {
+
+			this.grid[y][x] -= damage;
+
+			if (this.grid[y][x] <= 0) {
+				incrementPixels(1);
+				this.updateCellColor(x, y);
+			}
+		}
+	}
+
+	setCellColor(x, y, color) {
+		let cell = document.querySelector(`#grid-display .grid-cell[data-x="${x}"][data-y="${y}"]`);
+
+		if (cell) {
+			cell.style.backgroundColor = color;
+		}
+	} 
+
 	updateCellColor(x, y) {
 		let cell = document.querySelector(`#grid-display .grid-cell[data-x="${x}"][data-y="${y}"]`);
 
@@ -94,7 +116,8 @@ class SandGrid {
 		}
 	}
 
-	onClick(event) {
+	mouseToGrid(mouseX, mouseY) {
+		// Convert relatvie mouse position on grid to grid coordinates
 		const rect = this.gridDisplay.getBoundingClientRect();
 			
 		const relativeX = event.clientX - rect.left;
@@ -103,13 +126,12 @@ class SandGrid {
 		const gridX = Math.floor(relativeX / this.cellSize);
 		const gridY = Math.floor(relativeY / this.cellSize);
 
-		if (this.grid[gridY][gridX] > 0) {
-			this.grid[gridY][gridX] -= 1;
-		}
+		return { x: gridX, y: gridY };
+	}
 
-		if (this.grid[gridY][gridX] <= 0) {
-			incrementPixels(1);
-			this.updateCellColor(gridX, gridY);
-		}
+	onClick(event) {
+		const gridPos = this.mouseToGrid(event.x, event.y);
+
+		this.damageCell(gridPos.x, gridPos.y, 1);
 	}
 }

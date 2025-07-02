@@ -9,6 +9,50 @@ class SandGrid {
 		this.setupGridDisplay();
 	}
 
+	updateGrid() {
+		for (let y = 0; y < this.height - 1; y++) {
+			for (let x = 0; x < this.width; x++) {
+				let cellValue = this.grid[y][x]
+				let moveCellValue = this.grid[y + 1][x];
+
+				if (cellValue <= 0) { continue; }
+
+				const canMoveDown = this.grid[y + 1][x] <= 0;
+				const canMoveRight = this.grid[y][x + 1] <= 0 && this.grid[y + 1][x + 1] <= 0;
+				const canMoveLeft = this.grid[y][x - 1] <= 0 && this.grid[y + 1][x - 1] <= 0;
+
+				if (canMoveDown) {
+					this.moveCell(x, y, x, y + 1);
+				}
+
+				else if (canMoveRight && canMoveLeft) {
+					getRandomInt(1) == 1 ?
+						this.moveCell(x, y, x + 1, y) :
+						this.moveCell(x, y, x - 1, y)
+				}
+
+				else if (canMoveRight) {
+					this.moveCell(x, y, x + 1, y);
+				}
+
+				else if (canMoveLeft) {
+					this.moveCell(x, y, x - 1, y);
+				}
+			}
+		}
+	}
+
+	moveCell(x, y, toX, toY) {
+		let cellValue = this.grid[y][x];
+		let moveCellValue = this.grid[toY][toX];
+
+		this.grid[toY][toX] = cellValue;
+		this.grid[y][x] = moveCellValue;
+
+		this.updateCellColor(x, y);
+		this.updateCellColor(toX, toY);
+	}
+
 	setupGridDisplay() {
 		this.gridDisplay.onclick = (event) => this.onClick(event);
 
@@ -34,10 +78,11 @@ class SandGrid {
 		}
 	}
 
-	setCellColor(x, y, color) {
+	updateCellColor(x, y) {
 		let cell = document.querySelector(`#grid-display .grid-cell[data-x="${x}"][data-y="${y}"]`);
 
 		if (cell) {
+			let color = this.grid[y][x] > 0 ? "yellow" : document.body.style.backgroundColor;
 			cell.style.backgroundColor = color;
 		}
 	}
@@ -57,7 +102,7 @@ class SandGrid {
 
 		if (this.grid[gridY][gridX] <= 0) {
 			incrementPixels(1);
-			this.setCellColor(gridX, gridY, document.body.style.backgroundColor);
+			this.updateCellColor(gridX, gridY);
 		}
 	}
 }

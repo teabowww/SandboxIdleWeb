@@ -11,5 +11,5 @@ function setupGame() {
 }
 
 function updateGame(deltaTime, totalTime) {
-	
+	grid.updateGrid();
 }

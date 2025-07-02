@@ -1,6 +1,6 @@
-const gridWidth = 20;
-const gridHeight = 20;
-const cellSize = 20;
+const gridWidth = 80;
+const gridHeight = 80;
+const cellSize = 10;
 
 let grid = new SandGrid(gridWidth, gridHeight, cellSize);
 

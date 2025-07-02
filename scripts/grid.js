@@ -58,12 +58,19 @@ class SandGrid {
 
 		this.gridDisplay.innerHTML = "";
 
+		// Set display grid columns and rows
+		this.gridDisplay.style.gridTemplateColumns = `repeat(${this.width}, ${this.cellSize}px)`;
+		this.gridDisplay.style.gridTemplateRows = `repeat(${this.width}, ${this.cellSize}px)`;
+
 		for (let y = 0; y < this.height; y++) {
 			for (let x = 0; x < this.width; x++) {
 
 				let cell = document.createElement("div");
 
 				cell.classList.add("grid-cell");
+
+				cell.style.width = `${this.cellSize}px`;
+				cell.style.height = `${this.cellSize}px`;
 
 				cell.dataset.x = x;
 				cell.dataset.y = y;

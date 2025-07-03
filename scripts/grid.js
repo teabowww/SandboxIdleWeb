@@ -77,8 +77,7 @@ class SandGrid {
 				cell.dataset.x = x;
 				cell.dataset.y = y;
 
-				let cellValue = this.grid[y][x];
-				let cellColor = cellValue > 0 ? "yellow" : document.body.style.backgroundColor;
+				let cellColor = this.getCellValueColor(x, y);
 				
 				cell.style.backgroundColor = cellColor;
 
@@ -92,28 +91,37 @@ class SandGrid {
 
 			this.grid[y][x] -= damage;
 
+			this.updateCellColor(x, y);
+
 			if (this.grid[y][x] <= 0) {
 				incrementPixels(1);
-				this.updateCellColor(x, y);
 			}
 		}
 	}
 
-	setCellColor(x, y, color) {
+	updateCellColor(x, y, color = null) {
 		let cell = document.querySelector(`#grid-display .grid-cell[data-x="${x}"][data-y="${y}"]`);
+
+		if (!color) {
+			color = this.getCellValueColor(x, y);
+		}
 
 		if (cell) {
 			cell.style.backgroundColor = color;
 		}
-	} 
+	}
 
-	updateCellColor(x, y) {
-		let cell = document.querySelector(`#grid-display .grid-cell[data-x="${x}"][data-y="${y}"]`);
+	getCellValueColor(x, y) {
+		let cellValue = this.grid[y][x];
 
-		if (cell) {
-			let color = this.grid[y][x] > 0 ? "yellow" : document.body.style.backgroundColor;
-			cell.style.backgroundColor = color;
-		}
+		let color = document.body.style.backgroundColor;
+
+		if (cellValue > 0) {
+			const colorValue = 255 - (cellValue - 1) * 5;
+			color = `rgb(${colorValue}, ${colorValue}, 0)`;
+		} 
+
+		return color;
 	}
 
 	mouseToGrid(mouseX, mouseY) {

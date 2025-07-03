@@ -2,7 +2,7 @@ class Ant {
 	constructor(x, y) {
 		this.x = x;
 		this.y = y;
-		this.color = "#FF0000";
+		this.color = "red";
 	}
 
 	move() {
@@ -21,7 +21,7 @@ class Ant {
 		grid.damageCell(gridX, gridY, 1);
 
 		// Upgrade grid display
-		grid.setCellColor(gridX, gridY, this.color);
+		grid.updateCellColor(gridX, gridY, this.color);
 		grid.updateCellColor(oldX, oldY);
 	}
 
@@ -36,8 +36,10 @@ class Ant {
 			const isWithinBoundsY = newY >= 0 && newY < grid.height;
 
 			if (!isWithinBoundsX || !isWithinBoundsY) { return false; }
+			
 			return true;
-			return grid.grid[newY][newX] > 0; 
+			
+			//return grid.grid[newY][newX] > 0; 
 		});
 
 		return validDirections; 

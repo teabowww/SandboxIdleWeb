@@ -3,26 +3,39 @@ class Ant {
 		this.x = x;
 		this.y = y;
 		this.color = "red";
+		this.timer = 0
+		this.delay = 1;
 	}
 
-	move() {
-		let oldX = Math.floor(this.x);;
-		let oldY = Math.floor(this.y);
+	update(deltaTime) {
+		this.timer += deltaTime;
 
-		let directions = this.getDirections();
-		let direction = directions[getRandomInt(directions.length - 1)];
+		if (this.timer >= this.delay) {
+			this.timer -= this.delay;
+			this.timer = 0;
 
-		this.x += direction.x;
-		this.y += direction.y;
+			let directions = this.getDirections();
+			let direction = directions[getRandomInt(directions.length - 1)];
 
-		let gridX = Math.floor(this.x);
-		let gridY = Math.floor(this.y);
+			this.move(direction.x, direction.y);
+		}
+	}
 
-		grid.damageCell(gridX, gridY, 1);
+	move(dx, dy) {
+		let oldX = this.x;
+		let oldY = this.y;
+
+		this.x += dx;
+		this.y += dy;
+
+		grid.damageCell(this.x, this.y, 1);
 
 		// Upgrade grid display
-		grid.updateCellColor(gridX, gridY, this.color);
 		grid.updateCellColor(oldX, oldY);
+	}
+
+	render() {	
+		grid.updateCellColor(this.x, this.y, this.color);
 	}
 
 	getDirections() {
@@ -36,10 +49,8 @@ class Ant {
 			const isWithinBoundsY = newY >= 0 && newY < grid.height;
 
 			if (!isWithinBoundsX || !isWithinBoundsY) { return false; }
-			
+
 			return true;
-			
-			//return grid.grid[newY][newX] > 0; 
 		});
 
 		return validDirections; 

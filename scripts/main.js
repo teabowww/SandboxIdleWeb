@@ -5,7 +5,11 @@ const cellSize = 10;
 let grid = new SandGrid(gridWidth, gridHeight, cellSize);
 
 let ants = [];
-let ant = new Ant(0, 0);
+
+for (let i = 0; i < 10; i++) {
+	let ant = new Ant(i, i);
+	ants.push(ant);
+}
 
 ants.push(ant);
 
@@ -18,11 +22,12 @@ function setupGame() {
 function updateGame(deltaTime, totalTime) {
 	grid.updateGrid();
 
-	updateAnts();
+	updateAnts(deltaTime);
 }
 
-function updateAnts() {
+function updateAnts(deltaTime) {
 	for (const ant of ants) {
-		ant.move();
+		ant.update(deltaTime);
+		ant.render();
 	}
 }

@@ -42,6 +42,12 @@ class SandGrid {
 		}
 	}
 
+	getCell(x, y) {
+		if (x < 0 || x >= this.width || y < 0 || y >= this.height) { return 0; }
+
+		return this.grid[y][x];
+	}
+
 	moveCell(x, y, toX, toY) {
 		let cellValue = this.grid[y][x];
 		let moveCellValue = this.grid[toY][toX];

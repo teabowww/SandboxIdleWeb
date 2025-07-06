@@ -6,12 +6,11 @@ let grid = new SandGrid(gridWidth, gridHeight, cellSize);
 
 let ants = [];
 
-for (let i = 0; i < 10; i++) {
-	let ant = new Ant(i, i);
+for (let i = 0; i < 5; i++) {
+	let coord = i * 5
+	let ant = new Ant(coord, coord);
 	ants.push(ant);
 }
-
-ants.push(ant);
 
 setupGame();
 

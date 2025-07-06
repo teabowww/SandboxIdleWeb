@@ -19,14 +19,24 @@ class Ant {
 
 			this.move(direction.x, direction.y);
 		}
+
+		if (!grid.getCell(this.x, this.y + 1)) {
+			this.move(0, 1);
+		}
+
 	}
 
 	move(dx, dy) {
+		let newX = this.x + dx;
+		let newY = this.y + dy;
+
+		if (newX < 0 || newX >= grid.width || newY < 0 || newY >= grid.height) { return; }
+
 		let oldX = this.x;
 		let oldY = this.y;
 
-		this.x += dx;
-		this.y += dy;
+		this.x = newX;
+		this.y = newY;
 
 		grid.damageCell(this.x, this.y, 1);
 

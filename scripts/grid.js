@@ -122,10 +122,10 @@ class SandGrid {
 
 		let color = document.body.style.backgroundColor;
 
-		if (cellValue > 0) {
+		if (cellValue && cellValue > 0) {
 			const colorValue = 255 - (cellValue - 1) * 5;
 			color = `rgb(${colorValue}, ${colorValue}, 0)`;
-		} 
+		}
 
 		return color;
 	}

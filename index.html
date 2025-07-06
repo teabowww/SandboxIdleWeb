@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="./interface.css">
 </head>
 <body>
-	<span>
+	<span id="pixel-container">
 		You have 
 		<span id="pixel-count">0</span>
 		pixels
@@ -18,10 +18,19 @@
 		<div id="grid-display"></div>
 	</div>
 
+	<div id="breakers">
+		<div class="breaker-row">
+			<button id="breaker0-buy">Ant</button>
+			<span id="breaker0-cost"></span>
+			<span id="breaker0-amount">0</span>
+		<div></div>
+	</div>
+
 	<script type="text/javascript" src="./scripts/math.js"></script>
 	<script type="text/javascript" src="./scripts/count.js"></script>
 	<script type="text/javascript" src="./scripts/grid.js"></script>
 	<script type="text/javascript" src="./scripts/ant.js"></script>
+	<script type="text/javascript" src="./scripts/shop.js"></script>
 	<script type="text/javascript" src="./scripts/main.js"></script>
 	<script type="text/javascript" src="./scripts/interval.js"></script>
 </body>

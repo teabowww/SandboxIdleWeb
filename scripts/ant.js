@@ -1,11 +1,48 @@
+let ants = [];
+
+let antAmount = 0;
+let antCost = 10;
+let antCostMult = 1.2;
+
+function buyAnt() {
+	if (pixels >= antCost) {
+		pixels -= antCost;
+		updatePixelCount();
+		
+		antAmount += 1;
+		antCost = Math.floor(antCost * antCostMult);
+
+		updateAntShop();
+
+		spawnAnt();
+	}
+}
+
+function updateAntShop() {
+	let antCostDisplay = document.getElementById("breaker0-cost");
+	let antAmountDisplay = document.getElementById("breaker0-amount");
+
+	antCostDisplay.innerText = antCost;
+	antAmountDisplay.innerText = antAmount;
+}
+
+function spawnAnt() {
+	let x = getRandomInt(grid.width);
+	let y = getRandomInt(grid.height);
+
+	let ant = new Ant(x, y);
+
+	ants.push(ant);
+}
+
 class Ant {
 	constructor(x, y) {
 		this.x = x;
 		this.y = y;
 		this.color = "red";
 		this.timer = 0
-		this.delay = 1;
-	}
+		this.delay = 1000;
+	}	
 
 	update(deltaTime) {
 		this.timer += deltaTime;
@@ -15,7 +52,7 @@ class Ant {
 			this.timer = 0;
 
 			let directions = this.getDirections();
-			let direction = directions[getRandomInt(directions.length - 1)];
+			let direction = directions[getRandomInt(directions.length)];
 
 			this.move(direction.x, direction.y);
 		}

@@ -4,18 +4,10 @@ const cellSize = 10;
 
 let grid = new SandGrid(gridWidth, gridHeight, cellSize);
 
-let ants = [];
-
-for (let i = 0; i < 5; i++) {
-	let coord = i * 5
-	let ant = new Ant(coord, coord);
-	ants.push(ant);
-}
-
 setupGame();
 
 function setupGame() {
-	
+	setupShop();
 }
 
 function updateGame(deltaTime, totalTime) {

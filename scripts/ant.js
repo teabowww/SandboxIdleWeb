@@ -2,7 +2,7 @@ let ants = [];
 
 let antAmount = 0;
 let antCost = 10;
-let antCostMult = 1.2;
+let antCostMult = 1.4;
 
 function buyAnt() {
 	if (pixels >= antCost) {

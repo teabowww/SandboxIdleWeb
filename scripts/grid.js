@@ -65,8 +65,8 @@ class SandGrid {
 		this.gridDisplay.innerHTML = "";
 
 		// Set display grid column and row lengths
-		this.gridDisplay.style.gridTemplateColumns = `repeat(${this.width}, ${this.cellSize}px)`;
-		this.gridDisplay.style.gridTemplateRows = `repeat(${this.width}, ${this.cellSize}px)`;
+		this.gridDisplay.style.gridTemplateColumns = `repeat(${this.width}, ${this.cellSize}rem)`;
+		this.gridDisplay.style.gridTemplateRows = `repeat(${this.width}, ${this.cellSize}rem)`;
 
 		for (let y = 0; y < this.height; y++) {
 			for (let x = 0; x < this.width; x++) {
@@ -77,8 +77,8 @@ class SandGrid {
 
 				cell.classList.add("grid-cell");
 
-				cell.style.width = `${this.cellSize}px`;
-				cell.style.height = `${this.cellSize}px`;
+				cell.style.width = `${this.cellSize}rem`;
+				cell.style.height = `${this.cellSize}rem`;
 
 				cell.dataset.x = x;
 				cell.dataset.y = y;
@@ -137,9 +137,10 @@ class SandGrid {
 		const relativeX = event.clientX - rect.left;
 		const relativeY = event.clientY - rect.top;
 
-		const gridX = Math.floor(relativeX / this.cellSize);
-		const gridY = Math.floor(relativeY / this.cellSize);
-
+		// rem (default font size) to pixel coordinates
+    	const remToPx = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    	const gridX = Math.floor(relativeX / (this.cellSize * remToPx));
+   		const gridY = Math.floor(relativeY / (this.cellSize * remToPx));
 		return { x: gridX, y: gridY };
 	}
 

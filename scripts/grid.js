@@ -4,9 +4,9 @@ class SandGrid {
 		this.height = height;
 		this.cellSize = cellSize;
 		this.grid = Array.from({ length: width }, () => Array(height).fill(1));
-		this.gridDisplay = document.getElementById("grid-display");
-
-		this.setupGridDisplay();
+		this.gridCanvas = document.getElementById("grid-canvas");
+		this.gridCanvasContext = this.gridCanvas.getContext("2d");
+		this.setupGridCanvas();
 	}
 
 	updateGrid() {
@@ -59,35 +59,25 @@ class SandGrid {
 		this.updateCellColor(toX, toY);
 	}
 
-	setupGridDisplay() {
-		this.gridDisplay.onclick = (event) => this.onClick(event);
-		
-		this.gridDisplay.innerHTML = "";
+	setupGridCanvas() {
+		this.gridCanvas.width = this.width * this.cellSize;
+		this.gridCanvas.height = this.height * this.cellSize;
 
-		// Set display grid column and row lengths
-		this.gridDisplay.style.gridTemplateColumns = `repeat(${this.width}, ${this.cellSize}rem)`;
-		this.gridDisplay.style.gridTemplateRows = `repeat(${this.width}, ${this.cellSize}rem)`;
+		this.gridCanvas.onclick = (event) => this.onClick(event);
 
 		for (let y = 0; y < this.height; y++) {
 			for (let x = 0; x < this.width; x++) {
 
-				//console.log(getRandomInt(1));
+				let cellValue = this.grid[y][x];
 
-				let cell = document.createElement("div");
+				if (cellValue > 0) {
+					let cellColor = this.getCellValueColor(x, y);
+					this.gridCanvasContext.fillStyle = cellColor;
 
-				cell.classList.add("grid-cell");
+					this.gridCanvasContext.fillRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
+				}
 
-				cell.style.width = `${this.cellSize}rem`;
-				cell.style.height = `${this.cellSize}rem`;
-
-				cell.dataset.x = x;
-				cell.dataset.y = y;
-
-				let cellColor = this.getCellValueColor(x, y);
 				
-				cell.style.backgroundColor = cellColor;
-
-				this.gridDisplay.appendChild(cell);
 			}
 		}
 	}
@@ -106,21 +96,18 @@ class SandGrid {
 	}
 
 	updateCellColor(x, y, color = null) {
-		let cell = document.querySelector(`#grid-display .grid-cell[data-x="${x}"][data-y="${y}"]`);
-
 		if (!color) {
 			color = this.getCellValueColor(x, y);
 		}
 
-		if (cell) {
-			cell.style.backgroundColor = color;
-		}
+		this.gridCanvasContext.fillStyle = color;
+		this.gridCanvasContext.fillRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
 	}
 
 	getCellValueColor(x, y) {
 		let cellValue = this.grid[y][x];
 
-		let color = document.body.style.backgroundColor;
+		let color = "#141121";
 
 		if (cellValue && cellValue > 0) {
 			const colorValue = 255 - (cellValue - 1) * 5;
@@ -132,15 +119,15 @@ class SandGrid {
 
 	mouseToGrid(mouseX, mouseY) {
 		// Convert relatvie mouse position on grid to grid coordinates
-		const rect = this.gridDisplay.getBoundingClientRect();
+		const rect = this.gridCanvas.getBoundingClientRect();
 			
 		const relativeX = event.clientX - rect.left;
 		const relativeY = event.clientY - rect.top;
 
 		// rem (default font size) to pixel coordinates
-    	const remToPx = parseFloat(getComputedStyle(document.documentElement).fontSize);
-    	const gridX = Math.floor(relativeX / (this.cellSize * remToPx));
-   		const gridY = Math.floor(relativeY / (this.cellSize * remToPx));
+    	//const remToPx = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    	const gridX = Math.floor(relativeX / (this.cellSize));
+   		const gridY = Math.floor(relativeY / (this.cellSize));
 		return { x: gridX, y: gridY };
 	}
 

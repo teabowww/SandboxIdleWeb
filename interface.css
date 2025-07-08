@@ -1,6 +1,5 @@
 body {
 	background-color: #141121;
-	
 	color: #eee;
 	font-family: "Source Code Pro", monospace;
 	font-size: 1.5rem;
@@ -9,19 +8,6 @@ body {
 
 #pixel-count {
 	font-size: 2.0rem;
-}
-
-#grid-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px;
-}
-
-#grid-display {
-	display: grid;
-	justify-content: center;
-	align-content: center;
 }
 
 #breakers-container {

@@ -2,7 +2,7 @@ let ants = [];
 
 let antAmount = 0;
 let antCost = 10;
-let antCostMult = 1.4;
+let antCostMult = 1.2;
 
 function buyAnt() {
 	if (pixels >= antCost) {
@@ -13,7 +13,7 @@ function buyAnt() {
 		antCost = Math.floor(antCost * antCostMult);
 
 		updateAntShop();
-
+		
 		spawnAnt();
 	}
 }

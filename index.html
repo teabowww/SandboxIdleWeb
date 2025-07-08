@@ -12,11 +12,9 @@
 		You have 
 		<span id="pixel-count">0</span>
 		pixels
-	</span>
+	</span><br>
 
-	<div id="grid-container">
-		<div id="grid-display"></div>
-	</div>
+	<canvas id="grid-canvas"></canvas>	
 
 	<div id="breakers-container">
 		<div class="breaker-row">
@@ -26,12 +24,22 @@
 				<span id="breaker0-amount" class="breaker-amount">0</span>
 			</button>
 		</div>
+		<div class="breaker-row">
+			<button id="breaker1-buy" class="breaker-buy">
+				<span class="breaker-name">Bomb</span> 
+				<span id="breaker1-cost" class="breaker-cost"></span><span>p</span>
+				<span id="breaker1-amount" class="breaker-amount">0</span>
+			</button>
+		</div>
 	</div>
+
+	
 
 	<script type="text/javascript" src="./scripts/math.js"></script>
 	<script type="text/javascript" src="./scripts/count.js"></script>
 	<script type="text/javascript" src="./scripts/grid.js"></script>
 	<script type="text/javascript" src="./scripts/ant.js"></script>
+	<script type="text/javascript" src="./scripts/bomb.js"></script>
 	<script type="text/javascript" src="./scripts/shop.js"></script>
 	<script type="text/javascript" src="./scripts/main.js"></script>
 	<script type="text/javascript" src="./scripts/interval.js"></script>

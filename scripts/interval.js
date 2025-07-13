@@ -15,4 +15,4 @@ window.setInterval(function() {
 	lastTime = currentTime;
 
 	updateGame(deltaTime, totalTime);
-}, 1000 / 60);
+}, 1000 / 30);

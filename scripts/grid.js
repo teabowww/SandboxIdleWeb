@@ -10,7 +10,7 @@ class SandGrid {
 	}
 
 	updateGrid() {
-		for (let y = 0; y < this.height - 1; y++) {
+		for (let y = this.height - 2; y >= 0; y--) {
 			for (let x = 0; x < this.width; x++) {
 				let cellValue = this.grid[y][x]
 				let moveCellValue = this.grid[y + 1][x];
@@ -90,7 +90,9 @@ class SandGrid {
 			this.updateCellColor(x, y);
 
 			if (this.grid[y][x] <= 0) {
-				incrementPixels(1);
+				incrementPixels(damage + this.grid[y][x]);
+			} else {
+				incrementPixels(damage);
 			}
 		}
 	}
@@ -110,7 +112,7 @@ class SandGrid {
 		let color = "#141121";
 
 		if (cellValue && cellValue > 0) {
-			const colorValue = 255 - (cellValue - 1) * 5;
+			const colorValue = 255 - (cellValue - 1) * 10;
 			color = `rgb(${colorValue}, ${colorValue}, 0)`;
 		}
 
